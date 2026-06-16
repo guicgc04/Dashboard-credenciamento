@@ -11,8 +11,8 @@
   <!-- Dados injetados pelo Python (dashboard_docs.py) para o chart.js -->
   <script>
     window.CHART_LABELS = ["In\u00edcio", "16/06"];
-    window.CHART_VALUES = [0, 683];
-    window.CHART_TOTAL  = 683;
+    window.CHART_VALUES = [0, 0];
+    window.CHART_TOTAL  = 0;
   </script>
 </head>
 <body>
@@ -35,11 +35,11 @@
   <main>
 
     <!-- Semáforo de status geral -->
-    <div class="semaforo" style="--sem-cor: #2D6A4F">
-      <span class="sem-emoji">🟢</span>
+    <div class="semaforo" style="--sem-cor: #E30613">
+      <span class="sem-emoji">🔴</span>
       <div class="sem-texto">
-        <h2>No caminho certo — 100.0% concluído</h2>
-        <p>Baseado em 683 colaboradores ativos. Atualizado em 16/06/2026 às 13:46.</p>
+        <h2>Situação crítica — 0.0% concluído</h2>
+        <p>Baseado em 0 colaboradores ativos. Atualizado em 16/06/2026 às 14:24.</p>
       </div>
     </div>
 
@@ -47,22 +47,22 @@
     <div class="cards">
       <div class="card">
         <div class="card-label">Total de colaboradores</div>
-        <div class="card-value">683</div>
+        <div class="card-value">0</div>
         <div class="card-sub">ativos no projeto</div>
       </div>
       <div class="card">
         <div class="card-label">Documentação completa</div>
-        <div class="card-value green">683</div>
+        <div class="card-value green">0</div>
         <div class="card-sub">sem pendências abertas</div>
       </div>
       <div class="card">
         <div class="card-label">Com pendências</div>
-        <div class="card-value amber">0</div>
+        <div class="card-value red">677</div>
         <div class="card-sub">aguardando documentos</div>
       </div>
       <div class="card">
         <div class="card-label">Progresso geral</div>
-        <div class="card-value green">100.0%</div>
+        <div class="card-value red">0.0%</div>
         <div class="card-sub">documentação coletada</div>
       </div>
     </div>
@@ -72,11 +72,11 @@
       <div class="section-title">Progresso geral</div>
       <div class="progress-wrap">
         <div class="progress-meta">
-          <span><strong>683</strong> completos</span>
-          <span><strong>0</strong> pendentes</span>
+          <span><strong>0</strong> completos</span>
+          <span><strong>677</strong> pendentes</span>
         </div>
         <div class="progress-track">
-          <div class="progress-fill" style="width:100.0%"></div>
+          <div class="progress-fill" style="width:0.0%"></div>
         </div>
         <div class="progress-labels">
           <span><span class="legend-dot" style="background:var(--green)"></span>Completo</span>
@@ -88,7 +88,87 @@
     <!-- Ranking dos documentos mais faltantes -->
     <div class="section">
       <div class="section-title">Documentos mais faltantes</div>
-      <p style="color:var(--muted);font-size:13px;">Nenhuma pendência registrada.</p>
+      
+        <div class="rank-row">
+          <span class="rank-pos">#1</span>
+          <span class="rank-label">conhecimentos_aduaneiros</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:100%"></div>
+          </div>
+          <span class="rank-count">635</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#2</span>
+          <span class="rank-label">cpf</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:75%"></div>
+          </div>
+          <span class="rank-count">476</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#3</span>
+          <span class="rank-label">pisoa</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:33%"></div>
+          </div>
+          <span class="rank-count">212</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#4</span>
+          <span class="rank-label">vacina</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:26%"></div>
+          </div>
+          <span class="rank-count">163</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#5</span>
+          <span class="rank-label">rg</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:22%"></div>
+          </div>
+          <span class="rank-count">141</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#6</span>
+          <span class="rank-label">vinculo_empregatorio</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:18%"></div>
+          </div>
+          <span class="rank-count">113</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#7</span>
+          <span class="rank-label">cove</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:7%"></div>
+          </div>
+          <span class="rank-count">42</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#8</span>
+          <span class="rank-label">avsec</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:5%"></div>
+          </div>
+          <span class="rank-count">33</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#9</span>
+          <span class="rank-label">foto</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:5%"></div>
+          </div>
+          <span class="rank-count">29</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#10</span>
+          <span class="rank-label">cnh</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:4%"></div>
+          </div>
+          <span class="rank-count">25</span>
+        </div>
     </div>
 
     <!-- Gráfico de linha — evolução diária de colaboradores completos -->
@@ -104,7 +184,7 @@
   ═══════════════════════════════════════════════════════════════ -->
   <footer>
     <p>
-      Última atualização: <strong>16/06/2026 às 13:46</strong>
+      Última atualização: <strong>16/06/2026 às 14:24</strong>
       &nbsp;·&nbsp;
       JSL S/A — Projeto Credenciamento GRU
     </p>
