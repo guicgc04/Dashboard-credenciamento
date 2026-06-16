@@ -1,0 +1,160 @@
+/* ==============================================================================
+   layout.css — Estilos do Dashboard de Coleta de Documentos
+   Projeto de Credenciamento GRU — JSL S/A
+   ============================================================================== */
+
+/* ── Tokens de design ─────────────────────────────────────────────────────────── */
+:root {
+  --red:      #E30613;   /* JSL vermelho principal    */
+  --red-dark: #A80009;   /* hover / acento escuro     */
+  --green:    #2D6A4F;   /* completo / positivo       */
+  --amber:    #B5720A;   /* atenção / intermediário   */
+  --bg:       #F7F8FA;   /* fundo da página           */
+  --surface:  #FFFFFF;   /* fundo dos cards           */
+  --border:   #E2E5EA;   /* bordas e separadores      */
+  --text:     #1A1D23;   /* texto principal           */
+  --muted:    #6B7280;   /* texto secundário / labels */
+  --radius:   8px;
+  --shadow:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+
+/* ── Reset e base ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Header fixo no topo ──────────────────────────────────────────────────────── */
+header {
+  background: var(--red);
+  color: #fff;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(227,6,19,.35);
+}
+
+.header-brand  { display: flex; align-items: center; gap: 14px; }
+.header-logo   { font-size: 18px; font-weight: 800; letter-spacing: -.5px;
+                 color: #fff; text-transform: uppercase; }
+.header-sep    { width: 1px; height: 22px; background: rgba(255,255,255,.35); }
+.header-title  { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.9); }
+.header-badge  { font-size: 11px; font-weight: 600; padding: 3px 10px;
+                 background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.3);
+                 border-radius: 999px; color: #fff; letter-spacing: .03em; }
+
+/* ── Layout principal ─────────────────────────────────────────────────────────── */
+main { max-width: 1100px; margin: 0 auto; padding: 28px 24px 48px; }
+
+/* ── Banner de semáforo ───────────────────────────────────────────────────────── */
+.semaforo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--sem-cor);
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.sem-emoji    { font-size: 32px; line-height: 1; }
+.sem-texto h2 { font-size: 18px; font-weight: 700; color: var(--sem-cor); }
+.sem-texto p  { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+/* ── Grid de cards de resumo ──────────────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+@media (max-width: 768px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+
+.card       { background: var(--surface); border: 1px solid var(--border);
+              border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+.card-label { font-size: 11px; font-weight: 600; letter-spacing: .06em;
+              text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.card-value { font-size: 32px; font-weight: 800; color: var(--text); line-height: 1; }
+.card-sub   { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.card-value.green { color: var(--green); }
+.card-value.amber { color: var(--amber); }
+.card-value.red   { color: var(--red);   }
+
+/* ── Seção genérica com título ────────────────────────────────────────────────── */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── Barra de progresso geral ─────────────────────────────────────────────────── */
+.progress-wrap   { display: flex; flex-direction: column; gap: 10px; }
+.progress-meta   { display: flex; justify-content: space-between;
+                   font-size: 13px; color: var(--muted); }
+.progress-meta strong { color: var(--text); }
+.progress-track  { height: 20px; background: #F0F0F0; border-radius: 999px; overflow: hidden; }
+.progress-fill   { height: 100%; border-radius: 999px;
+                   background: linear-gradient(90deg, var(--green) 0%, #3d8b65 100%); }
+.progress-labels { display: flex; gap: 20px; font-size: 12px; }
+.legend-dot      { width: 10px; height: 10px; border-radius: 50%;
+                   display: inline-block; margin-right: 5px; }
+
+/* ── Ranking de documentos faltantes ─────────────────────────────────────────── */
+.rank-row {
+  display: grid;
+  grid-template-columns: 30px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.rank-row:last-child { border-bottom: none; }
+.rank-pos      { font-size: 11px; font-weight: 700; color: var(--muted); text-align: right; }
+.rank-label    { font-size: 13px; font-weight: 500; }
+.rank-bar-wrap { height: 8px; background: #F0F0F0;
+                 border-radius: 999px; overflow: hidden; min-width: 80px; }
+.rank-bar      { height: 100%; background: var(--red); border-radius: 999px; opacity: .75; }
+.rank-count    { font-size: 13px; font-weight: 700; color: var(--red);
+                 min-width: 30px; text-align: right; }
+
+/* ── Canvas do gráfico de evolução ───────────────────────────────────────────── */
+#chart-evolucao { width: 100%; height: 200px; }
+
+/* ── Rodapé ───────────────────────────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 24px 0 0;
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+}
+footer strong { color: var(--text); }
