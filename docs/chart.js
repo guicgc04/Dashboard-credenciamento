@@ -1,77 +1,71 @@
 // ==============================================================================
-// chart.js — Gráfico de Evolução Diária (Canvas API, sem dependências)
+// chart.js — Gráficos do Dashboard (Canvas API, sem dependências)
 // Projeto de Credenciamento GRU — JSL S/A
 //
-// Os dados (labels e values) são injetados pelo Python no index.html
-// como variáveis globais antes deste script ser carregado:
-//
-//   window.CHART_LABELS = ["01/06", "02/06", ...]
-//   window.CHART_VALUES = [120, 145, ...]
-//   window.CHART_TOTAL  = 698
+// Variáveis globais injetadas pelo Python no index.html:
+//   window.CHART_LABELS  → datas da evolução diária
+//   window.CHART_VALUES  → completos por dia
+//   window.CHART_TOTAL   → total de colaboradores
+//   window.GRUPOS_LABELS → nomes dos grupos (A, B, C, D)
+//   window.GRUPOS_VALUES → pendências por grupo
 // ==============================================================================
 
+// ── Gráfico de linha — Evolução diária ────────────────────────────────────────
 (function () {
-
-  // ── Dados injetados pelo Python via index.html ─────────────────────────────
   const labels = window.CHART_LABELS || [];
   const values = window.CHART_VALUES || [];
   const total  = window.CHART_TOTAL  || 698;
 
-  // ── Configuração do canvas ─────────────────────────────────────────────────
   const canvas = document.getElementById('chart-evolucao');
-  const ctx    = canvas.getContext('2d');
-  const W      = canvas.offsetWidth  || 800;
-  const H      = canvas.offsetHeight || 200;
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W   = canvas.offsetWidth  || 700;
+  const H   = canvas.offsetHeight || 240;
   canvas.width  = W;
   canvas.height = H;
 
-  // Margens internas do gráfico
-  const PAD = { top: 16, right: 24, bottom: 36, left: 48 };
-  const cW  = W - PAD.left - PAD.right;   // largura útil
-  const cH  = H - PAD.top  - PAD.bottom;  // altura útil
+  const PAD  = { top: 20, right: 20, bottom: 40, left: 52 };
+  const cW   = W - PAD.left - PAD.right;
+  const cH   = H - PAD.top  - PAD.bottom;
   const maxV = Math.max(...values, total);
   const n    = labels.length;
 
-  // ── Fallback para dados insuficientes ─────────────────────────────────────
+  // Fallback
   if (n < 2) {
     ctx.fillStyle = '#6B7280';
     ctx.textAlign = 'center';
-    ctx.font      = '13px Inter, sans-serif';
+    ctx.font = '13px Inter, sans-serif';
     ctx.fillText('Dados insuficientes para exibir evolução', W / 2, H / 2);
     return;
   }
 
-  // ── Grade horizontal e eixo Y ─────────────────────────────────────────────
+  // Grade e eixo Y
   ctx.strokeStyle = '#E2E5EA';
   ctx.lineWidth   = 1;
   ctx.fillStyle   = '#6B7280';
   ctx.font        = '11px Inter, sans-serif';
   ctx.textAlign   = 'right';
 
-  const gridSteps = 5;
-  for (let i = 0; i <= gridSteps; i++) {
-    const v = Math.round(maxV / gridSteps * i);
+  for (let i = 0; i <= 5; i++) {
+    const v = Math.round(maxV / 5 * i);
     const y = PAD.top + cH - (v / maxV * cH);
-
     ctx.beginPath();
     ctx.moveTo(PAD.left, y);
     ctx.lineTo(PAD.left + cW, y);
     ctx.stroke();
-
     ctx.fillText(v, PAD.left - 6, y + 4);
   }
 
-  // ── Eixo X — máximo de 10 labels para não sobrepor ────────────────────────
+  // Eixo X
   ctx.textAlign   = 'center';
-  const labelStep = Math.max(1, Math.floor(n / 10));
-
+  const labelStep = Math.max(1, Math.floor(n / 8));
   labels.forEach((lbl, i) => {
     if (i % labelStep !== 0 && i !== n - 1) return;
     const x = PAD.left + i / (n - 1) * cW;
     ctx.fillText(lbl, x, H - PAD.bottom + 18);
   });
 
-  // ── Área preenchida sob a linha ────────────────────────────────────────────
+  // Área preenchida
   ctx.beginPath();
   values.forEach((v, i) => {
     const x = PAD.left + i / (n - 1) * cW;
@@ -81,14 +75,13 @@
   ctx.lineTo(PAD.left + cW, PAD.top + cH);
   ctx.lineTo(PAD.left,      PAD.top + cH);
   ctx.closePath();
-
-  const gradiente = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
-  gradiente.addColorStop(0, 'rgba(45,106,79,.35)');
-  gradiente.addColorStop(1, 'rgba(45,106,79,.02)');
-  ctx.fillStyle = gradiente;
+  const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
+  grad.addColorStop(0, 'rgba(45,106,79,.4)');
+  grad.addColorStop(1, 'rgba(45,106,79,.02)');
+  ctx.fillStyle = grad;
   ctx.fill();
 
-  // ── Linha principal ────────────────────────────────────────────────────────
+  // Linha
   ctx.beginPath();
   ctx.strokeStyle = '#2D6A4F';
   ctx.lineWidth   = 2.5;
@@ -100,16 +93,108 @@
   });
   ctx.stroke();
 
-  // ── Ponto final destacado ──────────────────────────────────────────────────
-  const xFinal = PAD.left + cW;
-  const yFinal = PAD.top  + cH - (values[n - 1] / maxV * cH);
-
+  // Ponto final
+  const xF = PAD.left + cW;
+  const yF = PAD.top  + cH - (values[n - 1] / maxV * cH);
   ctx.beginPath();
-  ctx.arc(xFinal, yFinal, 5, 0, Math.PI * 2);
+  ctx.arc(xF, yF, 5, 0, Math.PI * 2);
   ctx.fillStyle   = '#2D6A4F';
   ctx.fill();
   ctx.strokeStyle = '#fff';
   ctx.lineWidth   = 2;
   ctx.stroke();
+})();
 
+
+// ── Gráfico de pizza — Pendências por grupo ────────────────────────────────────
+(function () {
+  const labels = window.GRUPOS_LABELS || [];
+  const values = window.GRUPOS_VALUES || [];
+
+  const canvas = document.getElementById('chart-pizza');
+  if (!canvas || !values.length) return;
+  const ctx = canvas.getContext('2d');
+  const W   = canvas.offsetWidth  || 300;
+  const H   = canvas.offsetHeight || 240;
+  canvas.width  = W;
+  canvas.height = H;
+
+  const CORES = ['#E30613', '#1A3A5C', '#B5720A', '#2D6A4F', '#7FA8D1', '#6B7280'];
+
+  const total   = values.reduce((a, b) => a + b, 0);
+  if (total === 0) {
+    ctx.fillStyle = '#6B7280';
+    ctx.textAlign = 'center';
+    ctx.font = '13px Inter, sans-serif';
+    ctx.fillText('Sem pendências registradas', W / 2, H / 2);
+    return;
+  }
+
+  // Dimensões
+  const legendH  = 24 * labels.length;
+  const chartH   = H - legendH - 16;
+  const cx       = W / 2;
+  const cy       = chartH / 2 + 8;
+  const raio     = Math.min(cx, cy) - 12;
+  const raioBuraco = raio * 0.52;  // donut
+
+  let angulo = -Math.PI / 2;
+
+  values.forEach((v, i) => {
+    const fatia = (v / total) * 2 * Math.PI;
+    const cor   = CORES[i % CORES.length];
+
+    // Fatia
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, raio, angulo, angulo + fatia);
+    ctx.closePath();
+    ctx.fillStyle = cor;
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth   = 2;
+    ctx.stroke();
+
+    // Percentual dentro da fatia (só se > 5%)
+    const pct = v / total * 100;
+    if (pct > 5) {
+      const mid = angulo + fatia / 2;
+      const tx  = cx + Math.cos(mid) * (raio * 0.72);
+      const ty  = cy + Math.sin(mid) * (raio * 0.72);
+      ctx.fillStyle = '#fff';
+      ctx.font      = 'bold 12px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(pct.toFixed(0) + '%', tx, ty + 4);
+    }
+
+    angulo += fatia;
+  });
+
+  // Buraco do donut
+  ctx.beginPath();
+  ctx.arc(cx, cy, raioBuraco, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+
+  // Total no centro
+  ctx.fillStyle = '#1A1D23';
+  ctx.font      = 'bold 18px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(total, cx, cy - 4);
+  ctx.font      = '11px Inter, sans-serif';
+  ctx.fillStyle = '#6B7280';
+  ctx.fillText('pendentes', cx, cy + 14);
+
+  // Legenda embaixo
+  const startY = chartH + 8;
+  labels.forEach((lbl, i) => {
+    const cor = CORES[i % CORES.length];
+    const y   = startY + i * 24;
+    ctx.fillStyle = cor;
+    ctx.fillRect(0, y + 4, 14, 14);
+    ctx.fillStyle = '#1A1D23';
+    ctx.font      = '12px Inter, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(`Grupo ${lbl}  —  ${values[i]} pendentes`, 22, y + 15);
+  });
 })();
