@@ -200,7 +200,7 @@ main {
 
 /* ── Canvas gráficos ──────────────────────────────────────────────────────────── */
 #chart-evolucao { width: 100%; height: 240px; }
-#chart-pizza    { width: 100%; height: 240px; }
+#chart-pizza    { width: 100%; height: 300px; }
 
 /* ── Rodapé ───────────────────────────────────────────────────────────────────── */
 footer {

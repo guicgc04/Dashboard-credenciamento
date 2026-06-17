@@ -130,13 +130,13 @@
     return;
   }
 
-  // Dimensões
-  const legendH  = 24 * labels.length;
-  const chartH   = H - legendH - 16;
-  const cx       = W / 2;
-  const cy       = chartH / 2 + 8;
-  const raio     = Math.min(cx, cy) - 12;
-  const raioBuraco = raio * 0.52;  // donut
+  // Dimensões — legenda com mais espaço (32px/linha) e gráfico maior
+  const legendH    = 32 * labels.length;
+  const chartH     = H - legendH - 20;
+  const cx         = W / 2;
+  const cy         = chartH / 2 + 8;
+  const raio       = Math.min(cx, cy) - 8;
+  const raioBuraco = raio * 0.48;
 
   let angulo = -Math.PI / 2;
 
@@ -185,16 +185,21 @@
   ctx.fillStyle = '#6B7280';
   ctx.fillText('pendentes', cx, cy + 14);
 
-  // Legenda embaixo
-  const startY = chartH + 8;
+  // Legenda embaixo — quadrado centralizado com o texto
+  const startY = chartH + 12;
   labels.forEach((lbl, i) => {
-    const cor = CORES[i % CORES.length];
-    const y   = startY + i * 24;
+    const cor  = CORES[i % CORES.length];
+    const y    = startY + i * 32;
+    const midY = y + 10;  // centro vertical da linha
+
+    // Quadrado colorido centralizado verticalmente
     ctx.fillStyle = cor;
-    ctx.fillRect(0, y + 4, 14, 14);
+    ctx.fillRect(0, midY - 7, 14, 14);
+
+    // Texto alinhado ao centro vertical do quadrado
     ctx.fillStyle = '#1A1D23';
     ctx.font      = '12px Inter, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`Grupo ${lbl}  —  ${values[i]} pendentes`, 22, y + 15);
+    ctx.fillText(`Grupo ${lbl}  —  ${values[i]} pendentes`, 22, midY + 5);
   });
 })();
