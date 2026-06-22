@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="layout.css">
   <script>
     window.CHART_LABELS  = ["16/06", "17/06", "19/06", "20/06", "21/06", "22/06"];
-    window.CHART_VALUES  = [1869, 1864, 1813, 1813, 1813, 1813];
+    window.CHART_VALUES  = [1869, 1864, 1813, 1813, 1813, 2277];
     window.CHART_TOTAL   = 686;
     window.GRUPOS_LABELS = ["A", "B", "C", "D"];
-    window.GRUPOS_VALUES = [38, 992, 750, 33];
+    window.GRUPOS_VALUES = [42, 1222, 969, 44];
   </script>
 </head>
 <body>
@@ -23,7 +23,7 @@
     <div class="header-title">Credenciamento GRU — Coleta de Documentos</div>
     <div class="header-meta">
       Atualizado em:
-      <span>22/06/2026 às 13:45</span>
+      <span>22/06/2026 às 14:00</span>
     </div>
   </header>
 
@@ -33,8 +33,8 @@
     <div class="semaforo" style="--sem-cor: #E30613">
       <span class="sem-emoji">🔴</span>
       <div class="sem-texto">
-        <h2>Situação crítica — 2.8% concluído</h2>
-        <p>Baseado em 686 colaboradores ativos. Atualizado em 22/06/2026 às 13:45.</p>
+        <h2>Situação crítica — 2.2% concluído</h2>
+        <p>Baseado em 686 colaboradores ativos. Atualizado em 22/06/2026 às 14:00.</p>
       </div>
     </div>
 
@@ -47,17 +47,17 @@
       </div>
       <div class="card green">
         <div class="card-label">Documentação completa</div>
-        <div class="card-value green">19</div>
+        <div class="card-value green">15</div>
         <div class="card-sub">colaboradores sem pendências</div>
       </div>
       <div class="card red">
         <div class="card-label">Com pendências</div>
-        <div class="card-value red">667</div>
+        <div class="card-value red">671</div>
         <div class="card-sub">colaboradores aguardando docs</div>
       </div>
       <div class="card amber">
         <div class="card-label">Progresso geral</div>
-        <div class="card-value red">2.8%</div>
+        <div class="card-value red">2.2%</div>
         <div class="card-sub">documentação coletada</div>
       </div>
     </div>
@@ -66,24 +66,24 @@
     <div class="cards">
       <div class="card red">
         <div class="card-label">Total de documentos pendentes</div>
-        <div class="card-value red">1813</div>
+        <div class="card-value red">2277</div>
         <div class="card-sub">documentos a coletar</div>
       </div>
       <div class="card amber">
         <div class="card-label">Média por colaborador</div>
-        <div class="card-value amber">2.7</div>
+        <div class="card-value amber">3.4</div>
         <div class="card-sub">documentos pendentes por pessoa</div>
       </div>
       
         <div class="card amber">
-          <div class="card-label">Ritmo médio / dia</div>
-          <div class="card-value amber">11.2</div>
-          <div class="card-sub">documentos resolvidos por dia</div>
+          <div class="card-label">Ritmo de resolução</div>
+          <div class="card-value amber" style="font-size:22px;">Calculando...</div>
+          <div class="card-sub">aguardando mais execuções</div>
         </div>
         <div class="card blue">
           <div class="card-label">Previsão de conclusão</div>
-          <div class="card-value blue" style="font-size:22px;">30/11/2026</div>
-          <div class="card-sub">em ~161 dias neste ritmo</div>
+          <div class="card-value blue" style="font-size:22px;">—</div>
+          <div class="card-sub">disponível após mais execuções</div>
         </div>
     </div>
 
@@ -93,11 +93,11 @@
         <div class="section-title">Progresso geral — colaboradores</div>
         <div class="progress-wrap">
           <div class="progress-meta">
-            <span><strong>19</strong> completos</span>
-            <span><strong>667</strong> pendentes</span>
+            <span><strong>15</strong> completos</span>
+            <span><strong>671</strong> pendentes</span>
           </div>
           <div class="progress-track">
-            <div class="progress-fill" style="width:2.8%"></div>
+            <div class="progress-fill" style="width:2.2%"></div>
           </div>
           <div class="progress-labels">
             <span><span class="legend-dot" style="background:var(--green)"></span>Completo</span>
@@ -126,18 +126,26 @@
           <div class="rank-bar-wrap">
             <div class="rank-bar" style="width:100%"></div>
           </div>
-          <span class="rank-count">624</span>
+          <span class="rank-count">622</span>
         </div>
         <div class="rank-row">
           <span class="rank-pos">#2</span>
+          <span class="rank-label">Vinculo Empregatorio</span>
+          <div class="rank-bar-wrap">
+            <div class="rank-bar" style="width:93%"></div>
+          </div>
+          <span class="rank-count">579</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-pos">#3</span>
           <span class="rank-label">Cpf</span>
           <div class="rank-bar-wrap">
             <div class="rank-bar" style="width:74%"></div>
           </div>
-          <span class="rank-count">461</span>
+          <span class="rank-count">460</span>
         </div>
         <div class="rank-row">
-          <span class="rank-pos">#3</span>
+          <span class="rank-pos">#4</span>
           <span class="rank-label">Pisoa</span>
           <div class="rank-bar-wrap">
             <div class="rank-bar" style="width:33%"></div>
@@ -145,28 +153,20 @@
           <span class="rank-count">206</span>
         </div>
         <div class="rank-row">
-          <span class="rank-pos">#4</span>
+          <span class="rank-pos">#5</span>
           <span class="rank-label">Vacina</span>
           <div class="rank-bar-wrap">
-            <div class="rank-bar" style="width:25%"></div>
+            <div class="rank-bar" style="width:26%"></div>
           </div>
           <span class="rank-count">159</span>
         </div>
         <div class="rank-row">
-          <span class="rank-pos">#5</span>
+          <span class="rank-pos">#6</span>
           <span class="rank-label">Rg</span>
           <div class="rank-bar-wrap">
-            <div class="rank-bar" style="width:21%"></div>
+            <div class="rank-bar" style="width:22%"></div>
           </div>
           <span class="rank-count">134</span>
-        </div>
-        <div class="rank-row">
-          <span class="rank-pos">#6</span>
-          <span class="rank-label">Vinculo Empregatorio</span>
-          <div class="rank-bar-wrap">
-            <div class="rank-bar" style="width:18%"></div>
-          </div>
-          <span class="rank-count">110</span>
         </div>
         <div class="rank-row">
           <span class="rank-pos">#7</span>
@@ -174,7 +174,7 @@
           <div class="rank-bar-wrap">
             <div class="rank-bar" style="width:6%"></div>
           </div>
-          <span class="rank-count">40</span>
+          <span class="rank-count">39</span>
         </div>
         <div class="rank-row">
           <span class="rank-pos">#8</span>
@@ -198,7 +198,7 @@
           <div class="rank-bar-wrap">
             <div class="rank-bar" style="width:4%"></div>
           </div>
-          <span class="rank-count">23</span>
+          <span class="rank-count">22</span>
         </div>
       </div>
     </div>
@@ -208,7 +208,7 @@
   <!-- Rodapé -->
   <footer>
     <p>
-      Última atualização: <strong>22/06/2026 às 13:45</strong>
+      Última atualização: <strong>22/06/2026 às 14:00</strong>
       &nbsp;·&nbsp;
       JSL S/A — Projeto Credenciamento GRU
     </p>
