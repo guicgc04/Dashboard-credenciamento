@@ -308,3 +308,104 @@ function gerarRankingHTML(lista) {
   window.renderizarPizza = renderizarPizza;
   document.addEventListener('DOMContentLoaded', () => renderizarPizza(labels, values));
 })();
+
+
+// ==============================================================================
+// GRAFICO DE EVOLUÇÃO DIÁRIA — Documentos Pendentes (Canvas API)
+// ==============================================================================
+
+(function () {
+  const labels = window.CHART_LABELS || [];
+  const values = window.CHART_VALUES || [];
+  const total  = window.CHART_TOTAL  || 0;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const canvas = document.getElementById('chart-evolucao');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const W   = canvas.offsetWidth  || 700;
+    const H   = canvas.offsetHeight || 240;
+    canvas.width  = W;
+    canvas.height = H;
+
+    const PAD  = { top: 20, right: 20, bottom: 40, left: 52 };
+    const cW   = W - PAD.left - PAD.right;
+    const cH   = H - PAD.top  - PAD.bottom;
+    const maxV = Math.max(...values, total, 1);
+    const n    = labels.length;
+
+    if (n < 2) {
+      ctx.fillStyle = '#6B7280';
+      ctx.textAlign = 'center';
+      ctx.font = '13px Inter, sans-serif';
+      ctx.fillText('Dados insuficientes para exibir evolucao', W / 2, H / 2);
+      return;
+    }
+
+    // Grade e eixo Y
+    ctx.strokeStyle = '#E2E5EA';
+    ctx.lineWidth   = 1;
+    ctx.fillStyle   = '#6B7280';
+    ctx.font        = '11px Inter, sans-serif';
+    ctx.textAlign   = 'right';
+
+    for (let i = 0; i <= 5; i++) {
+      const v = Math.round(maxV / 5 * i);
+      const y = PAD.top + cH - (v / maxV * cH);
+      ctx.beginPath();
+      ctx.moveTo(PAD.left, y);
+      ctx.lineTo(PAD.left + cW, y);
+      ctx.stroke();
+      ctx.fillText(v, PAD.left - 6, y + 4);
+    }
+
+    // Eixo X
+    ctx.textAlign   = 'center';
+    const labelStep = Math.max(1, Math.floor(n / 8));
+    labels.forEach((lbl, i) => {
+      if (i % labelStep !== 0 && i !== n - 1) return;
+      const x = PAD.left + i / (n - 1) * cW;
+      ctx.fillText(lbl, x, H - PAD.bottom + 18);
+    });
+
+    // Área preenchida
+    ctx.beginPath();
+    values.forEach((v, i) => {
+      const x = PAD.left + i / (n - 1) * cW;
+      const y = PAD.top  + cH - (v / maxV * cH);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.lineTo(PAD.left + cW, PAD.top + cH);
+    ctx.lineTo(PAD.left,      PAD.top + cH);
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
+    grad.addColorStop(0, 'rgba(227,6,19,.25)');
+    grad.addColorStop(1, 'rgba(227,6,19,.02)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Linha
+    ctx.beginPath();
+    ctx.strokeStyle = '#E30613';
+    ctx.lineWidth   = 2.5;
+    ctx.lineJoin    = 'round';
+    values.forEach((v, i) => {
+      const x = PAD.left + i / (n - 1) * cW;
+      const y = PAD.top  + cH - (v / maxV * cH);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Ponto final
+    const xF = PAD.left + cW;
+    const yF = PAD.top  + cH - (values[n - 1] / maxV * cH);
+    ctx.beginPath();
+    ctx.arc(xF, yF, 5, 0, Math.PI * 2);
+    ctx.fillStyle   = '#E30613';
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth   = 2;
+    ctx.stroke();
+  });
+})();

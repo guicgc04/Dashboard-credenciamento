@@ -117,7 +117,8 @@ main { width:100%; padding:24px 32px 48px; }
 .legend-dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:5px; }
 
 /* ── Pizza ── */
-#chart-pizza { width:100%; height:300px; }
+#chart-evolucao { width:100%; height:240px; }
+#chart-pizza    { width:100%; height:300px; }
 
 /* ── Badges e botoes ── */
 .badge-count {
