@@ -90,14 +90,19 @@ main { width:100%; padding:24px 32px 48px; }
 
 /* ── Grids ── */
 .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
-.grid-3 { display:grid; grid-template-columns:2fr 1fr; gap:20px; margin-bottom:20px; }
+
+/* grid-3: align-items:start faz cada coluna ocupar só a altura do seu
+   próprio conteúdo, em vez de esticar até a altura da coluna vizinha
+   (era isso que deixava o card da tabela com espaço em branco embaixo) */
+.grid-3 { display:grid; grid-template-columns:2fr 1fr; gap:20px; margin-bottom:20px; align-items:start; }
+
 @media (max-width:900px) { .grid-2,.grid-3 { grid-template-columns:1fr; } }
 
 /* ── Secao ── */
 .section {
   background:var(--surface); border:1px solid var(--border);
   border-radius:var(--radius); padding:24px 28px;
-  box-shadow:var(--shadow); height:100%;
+  box-shadow:var(--shadow);
 }
 .section-title {
   font-size:11px; font-weight:700; letter-spacing:.08em;
@@ -180,27 +185,6 @@ main { width:100%; padding:24px 32px 48px; }
 .rank-bar-wrap { height:8px; background:#EDEEF2; border-radius:999px; overflow:hidden; min-width:80px; }
 .rank-bar      { height:100%; background:var(--red); border-radius:999px; opacity:.8; }
 .rank-count    { font-size:14px; font-weight:800; color:var(--red); min-width:36px; text-align:right; }
-
-/* ── Painel de detalhe ── */
-.painel-detalhe { animation:slideIn .2s ease; }
-@keyframes slideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
-
-.detalhe-header { margin-bottom:16px; }
-.detalhe-nome   { font-size:15px; font-weight:800; color:var(--text); }
-.detalhe-info   { font-size:12px; color:var(--muted); margin-top:3px; }
-
-.detalhe-progresso { margin-bottom:14px; }
-.detalhe-prog-label { font-size:11px; color:var(--muted); margin-bottom:4px; }
-.detalhe-prog-track { height:10px; background:#EDEEF2; border-radius:999px; overflow:hidden; }
-.detalhe-prog-fill  { height:100%; border-radius:999px;
-                      background:linear-gradient(90deg,var(--green),#3d8b65); }
-
-.doc-lista { display:flex; flex-direction:column; gap:6px; }
-.doc-item  { display:flex; align-items:center; gap:8px; font-size:12px; }
-.doc-item .icone { font-size:14px; line-height:1; }
-.doc-item .doc-nome { text-transform:capitalize; }
-.doc-item.coletado .doc-nome { color:var(--green); }
-.doc-item.faltante .doc-nome { color:var(--red); font-weight:600; }
 
 /* ── Rodape ── */
 footer {

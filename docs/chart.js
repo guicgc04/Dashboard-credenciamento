@@ -60,7 +60,7 @@ function filtrarTabela() {
 
 
 // ==============================================================================
-// SELEÇÃO DE COLABORADOR — filtra gráficos e mostra painel
+// SELEÇÃO DE COLABORADOR — filtra o card de ranking (sem painel extra)
 // ==============================================================================
 
 function selecionarColaborador(matricula, tr) {
@@ -82,10 +82,7 @@ function selecionarColaborador(matricula, tr) {
   const c = dados[matricula];
   if (!c) return;
 
-  // Atualiza painel de detalhe
-  mostrarPainel(c);
-
-  // Atualiza ranking para este colaborador
+  // Atualiza o card de ranking para mostrar os documentos deste colaborador
   atualizarRanking(c);
 }
 
@@ -94,71 +91,12 @@ function limparFiltro() {
   colaboradorSelecionado = null;
   document.querySelectorAll('#tbody-colabs tr').forEach(r => r.classList.remove('selecionado'));
   document.getElementById('filter-hint').style.display = 'none';
-  document.getElementById('painel-detalhe').style.display = 'none';
-  document.getElementById('ranking-titulo').textContent = 'Documentos mais faltantes';
   renderizarRankingGlobal();
 }
 
 
 // ==============================================================================
-// PAINEL DE DETALHE
-// ==============================================================================
-
-function mostrarPainel(c) {
-  const painel    = document.getElementById('painel-detalhe');
-  const titulo    = document.getElementById('painel-titulo');
-  const conteudo  = document.getElementById('painel-conteudo');
-
-  painel.style.display = 'block';
-  titulo.textContent   = 'Detalhe do Colaborador';
-
-  const totalDocs    = c.docs_obrigatorios.length;
-  const coletados    = c.docs_coletados.length;
-  const pct          = totalDocs > 0 ? Math.round(coletados / totalDocs * 100) : 100;
-  const isPronto     = c.pendencias.length === 0;
-
-  // Monta lista de docs
-  let listaHTML = '<div class="doc-lista">';
-
-  c.docs_coletados.forEach(doc => {
-    listaHTML += `
-      <div class="doc-item coletado">
-        <span class="icone">&#10003;</span>
-        <span class="doc-nome">${doc.replace(/_/g, ' ')}</span>
-      </div>`;
-  });
-
-  c.pendencias.forEach(doc => {
-    listaHTML += `
-      <div class="doc-item faltante">
-        <span class="icone">&#10005;</span>
-        <span class="doc-nome">${doc.replace(/_/g, ' ')}</span>
-      </div>`;
-  });
-
-  listaHTML += '</div>';
-
-  conteudo.innerHTML = `
-    <div class="detalhe-header">
-      <div class="detalhe-nome">${c.nome}</div>
-      <div class="detalhe-info">
-        Mat. ${c.matricula} &bull; ${c.cargo} &bull; Grupo ${c.grupo}
-      </div>
-    </div>
-    <div class="detalhe-progresso">
-      <div class="detalhe-prog-label">
-        ${coletados} de ${totalDocs} documentos coletados (${pct}%)
-      </div>
-      <div class="detalhe-prog-track">
-        <div class="detalhe-prog-fill" style="width:${pct}%"></div>
-      </div>
-    </div>
-    ${listaHTML}`;
-}
-
-
-// ==============================================================================
-// RANKING
+// RANKING — card único, reaproveitado tanto para visão global quanto individual
 // ==============================================================================
 
 function renderizarRankingGlobal() {
@@ -170,7 +108,7 @@ function renderizarRankingGlobal() {
 
 function atualizarRanking(c) {
   document.getElementById('ranking-titulo').textContent =
-    `Pendencias de ${c.nome.split(' ')[0]}`;
+    `${c.nome} — Mat. ${c.matricula} — ${c.cargo}`;
 
   if (c.pendencias.length === 0) {
     document.getElementById('ranking-conteudo').innerHTML =
